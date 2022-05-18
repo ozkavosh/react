@@ -1,0 +1,27 @@
+.stock{
+    padding: 0;
+    margin: 0;
+    font-weight: lighter;
+}
+
+.addBtn, .minBtn{
+    width: 2rem;
+    height: 2rem;
+    background: none;
+    border: none;
+}
+
+.count{
+    width: calc(15rem - 4rem);
+    color: white;
+    margin: 0;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.countContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

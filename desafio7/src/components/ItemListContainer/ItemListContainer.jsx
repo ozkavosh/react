@@ -7,8 +7,8 @@ import getFetch from '../../getFetch';
 import { useParams} from 'react-router-dom'
 
 const ItemListContainer = ({ greetings }) => {
-  const [prod, setProd] = useState([]);
-  const [bool, setBool] = useState(true);
+  let [prod, setProd] = useState([]);
+  let [bool, setBool] = useState(true);
   const {categoria} = useParams();
 
   useEffect(() => {

@@ -9,7 +9,12 @@ import { useParams } from "react-router-dom";
 const ItemDetailContainer = ({ greetings }) => {
   const [prod, setProd] = useState([]);
   const [bool, setBool] = useState(true);
+  const [btnPressed, setBtnPressed] = useState(false);
   const { id } = useParams();
+
+  const onAdd = (quantity, name) => {
+    console.log(`Se agregaron ${quantity} ${name} al carrito`);
+  };
 
   useEffect(() => {
     console.log(id);
@@ -30,7 +35,7 @@ const ItemDetailContainer = ({ greetings }) => {
         {bool ? (
           <Ring size={40} lineWeight={5} speed={2} color="white" />
         ) : (
-          <ItemDetail product={prod} />
+          <ItemDetail product={prod} onAdd={onAdd} btnPressed={btnPressed}/>
         )}
       </Row>
     </Container>

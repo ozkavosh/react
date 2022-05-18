@@ -2,7 +2,7 @@ import "./ItemDetail.css";
 import { Row, Col } from "react-bootstrap";
 import ItemCount from "../ItemCount/ItemCount"
 
-const ItemList = ({ product }) => {
+const ItemDetail = ({ product }) => {
   return (
     <Row className="justify-content-center bg-light">
       <Col>
@@ -28,4 +28,4 @@ const ItemList = ({ product }) => {
   );
 };
 
-export default ItemList;
+export default ItemDetail;

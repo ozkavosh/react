@@ -2,19 +2,18 @@ import { useState } from "react";
 import "./ItemCount.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 const Icons = require("@fortawesome/free-solid-svg-icons");
 
-const ItemCount = ({  product, initial = 1,  }) => {
+const ItemCount = ({ product, initial = 1, onAdd, btnPressed }) => {
   const [count, setCount] = useState(initial);
 
   function addItem() {
-    if (count < product.stock) {
-      setCount(count + 1);
-    }
+    if (count < product.stock && !btnPressed) setCount(count + 1);
   }
 
   function removeItem() {
-    if (count > initial) setCount(count - 1);
+    if (count > initial && !btnPressed) setCount(count - 1);
   }
 
   return (
@@ -29,7 +28,23 @@ const ItemCount = ({  product, initial = 1,  }) => {
           <FontAwesomeIcon icon={Icons.faPlusCircle} />
         </button>
       </div>
-      <button className="btn btn-dark mb-3">Agregar al carrito</button>
+      {btnPressed ? (
+        <Row className="justify-content-center">
+          <Link to="/cart">
+            <button className="btn btn-dark mb-1 w-100">Ver carrito</button>
+          </Link>
+          <Link to="/" className="d-inline">
+            <button className="btn btn-dark mb-3 w-100">Seguir comprando</button>
+          </Link>
+        </Row>
+      ) : (
+        <button
+          onClick={() => onAdd(count, product.title)}
+          className="btn btn-dark mb-3"
+        >
+          Agregar al carrito
+        </button>
+      )}
     </Row>
   );
 };

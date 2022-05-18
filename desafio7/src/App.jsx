@@ -5,6 +5,7 @@ import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailCont
 import "bootstrap/dist/css/bootstrap.min.css";
 import Banner from "./components/Banner/Banner";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<><Banner /><ItemListContainer greetings="Todos los productos" /></>}/>
+          <Route path="/cart" element={<Cart />}/>
           <Route path="/:categoria" element={<><Banner /><ItemListContainer /></>}/>
           <Route path="/item/:id" element={<ItemDetailContainer greetings="Detalle del producto"/>}/>
           <Route path="/*" element={<Navigate to="/" replace/>}/> 

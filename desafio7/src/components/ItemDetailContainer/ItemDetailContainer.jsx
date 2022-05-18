@@ -14,6 +14,7 @@ const ItemDetailContainer = ({ greetings }) => {
 
   const onAdd = (quantity, name) => {
     console.log(`Se agregaron ${quantity} ${name} al carrito`);
+    setBtnPressed(true);
   };
 
   useEffect(() => {

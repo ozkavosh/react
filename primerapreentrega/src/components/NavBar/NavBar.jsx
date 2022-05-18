@@ -9,7 +9,7 @@ const NavBar = () => {
     <>
       <Navbar bg="dark" expand="lg" variant="dark" className="pt-2">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand>
             <Link to="/">
               <img src={logo} alt="" style={{ height: "4rem" }} />
             </Link>

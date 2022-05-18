@@ -23,7 +23,7 @@ const ItemListContainer = ({ greetings }) => {
   console.log(prod);
 
   return (
-    <Container fluid className="bg-success" style={{minHeight: "40vh"}}>
+    <Container fluid className="bg-secondary" style={{minHeight: "40vh"}}>
       <Row>
         <h2 className="title text-light p-2">{greetings ? greetings.toUpperCase() : categoria.toUpperCase()}</h2>
       </Row>

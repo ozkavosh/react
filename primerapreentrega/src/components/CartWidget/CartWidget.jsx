@@ -7,7 +7,7 @@ const CartWidget = () => {
   return (
     <button className="cart">
         <FontAwesomeIcon icon={Icons.faShoppingCart}/>
-        <Badge pill bg="warning">0</Badge>
+        <Badge pill bg="success">0</Badge>
     </button>
   )
 }

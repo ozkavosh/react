@@ -10,7 +10,7 @@ const Item = ({ product }) => {
         <Card.Title>{product.title}</Card.Title>
         <Card.Text>{product.description}</Card.Text>
         <Link to={`/item/${product.id}`}>
-          <Button variant="success">Ver Detalle del Producto</Button>
+          <Button variant="dark">Ver Detalle del Producto</Button>
         </Link>
       </Card.Body>
     </Card>

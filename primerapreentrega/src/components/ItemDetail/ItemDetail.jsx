@@ -1,21 +1,29 @@
 import "./ItemDetail.css";
-import { Row, Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import ItemCount from "../ItemCount/ItemCount"
 
 const ItemList = ({ product }) => {
   return (
-    <Row className="justify-content-center">
-      <Card className="mb-3 flex-row align-items-center" style={{ width: "32rem" }}>
-        <Card.Img variant="top" src={product.pictureUrl} />
-        <Card.Body>
-          <Card.Title>{product.title}</Card.Title>
-          <Card.Text>
-            {product.description}
-          </Card.Text>
-        </Card.Body>
-        <ListGroup className="list-group-flush">
-          <ListGroupItem>${product.price}</ListGroupItem>
-        </ListGroup>
-      </Card>
+    <Row className="justify-content-center bg-light">
+      <Col>
+        <img src={product.pictureUrl} alt="" />
+      </Col>
+
+      <Col className="d-flex flex-column justify-content-center">
+        <Row className="justify-content-center">
+          <h3>{product.title}</h3>
+        </Row>
+
+        <Row className="justify-content-center">
+          <h5>${product.price}</h5>
+        </Row>
+
+        <Row className="justify-content-center">
+          <p>{product.description}</p>
+        </Row>
+
+        <ItemCount product={product} />
+      </Col>
     </Row>
   );
 };

@@ -1,12 +1,3 @@
-.itemCount{
-    width: 15rem;
-    height: 12rem;
-    background: darkgray;
-    display: flex;
-    flex-flow: wrap column;
-    gap: 0.3rem;
-}
-
 .stock{
     padding: 0;
     margin: 0;
@@ -16,16 +7,21 @@
 .addBtn, .minBtn{
     width: 2rem;
     height: 2rem;
+    background: none;
+    border: none;
 }
 
 .count{
     width: calc(15rem - 4rem);
+    color: white;
+    margin: 0;
     height: 2rem;
-    background-color: white;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .countContainer{
     display: flex;
     align-items: center;
+    justify-content: center;
 }

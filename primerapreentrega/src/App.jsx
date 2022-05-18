@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App bg-primary">
+    <div className="App bg-secondary">
       <BrowserRouter>
         <NavBar />
         <Routes>

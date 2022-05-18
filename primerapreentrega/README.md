@@ -1,6 +1,6 @@
 ![](./animation.gif)
 
-# Primera Pre Entrega del proyecto React
+# Primera Entrega del proyecto React
 
 El proyecto esta enfocado en un E-commerce para una farmacia.
 

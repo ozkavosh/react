@@ -1,8 +1,9 @@
 import "./ItemDetail.css";
 import { Row, Col } from "react-bootstrap";
-import ItemCount from "../ItemCount/ItemCount"
+import ItemCount from "../ItemCount/ItemCount";
+import { Link } from "react-router-dom"
 
-const ItemDetail = ({ product, onAdd, btnPressed}) => {
+const ItemDetail = ({ product, onAdd, btnPressed }) => {
   return (
     <Row className="justify-content-center bg-light">
       <Col>
@@ -22,7 +23,20 @@ const ItemDetail = ({ product, onAdd, btnPressed}) => {
           <p>{product.description}</p>
         </Row>
 
-        <ItemCount product={product} onAdd={onAdd} btnPressed={btnPressed}/>
+        {btnPressed ? (
+          <Row className="justify-content-center">
+            <Link to="/cart">
+              <button className="btn btn-dark mb-1 w-100">Ver carrito</button>
+            </Link>
+            <Link to="/" className="d-inline">
+              <button className="btn btn-dark mb-3 w-100">
+                Seguir comprando
+              </button>
+            </Link>
+          </Row>
+        ) : (
+          <ItemCount product={product} onAdd={onAdd} btnPressed={btnPressed} />
+        )}
       </Col>
     </Row>
   );

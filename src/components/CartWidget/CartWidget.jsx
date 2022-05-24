@@ -13,8 +13,8 @@ const CartWidget = () => {
   const [cantidad, setCantidad] = useState(0);
 
   useEffect(() => {
-    setCantidad(cartList.length);
-  }, [cartList.length])
+    setCantidad(cartList.reduce((acc, item)=>acc+item.quantity,0));
+  }, [cartList])
 
   return (
     <Link to="/cart">

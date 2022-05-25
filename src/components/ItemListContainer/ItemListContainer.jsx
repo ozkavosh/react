@@ -22,7 +22,7 @@ const ItemListContainer = ({ greetings }) => {
       .finally(() => {
         setBool(false)
       });
-  }, [prod, categoria]);
+  }, [prod]);
 
   return (
     <Container fluid className="bg-secondary" style={{minHeight: "40vh"}}>

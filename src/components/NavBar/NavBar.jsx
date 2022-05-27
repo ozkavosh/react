@@ -5,11 +5,8 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 
 import CartWidget from "../CartWidget/CartWidget";
-import { useCartContext } from "../../context/CartContext";
 
 const NavBar = () => {
-  const { cartList } = useCartContext();
-
   return (
     <>
       <Navbar bg="dark" expand="lg" variant="dark" className="pt-2">
@@ -45,7 +42,7 @@ const NavBar = () => {
               </NavLink>
             </Nav>
 
-            { cartList.length ? <CartWidget /> : <></>}
+            <CartWidget />
           </Navbar.Collapse>
         </Container>
       </Navbar>

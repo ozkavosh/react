@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 
 import { Container, Row } from "react-bootstrap";
 
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+
 import { Ring } from "@uiball/loaders";
 
-import getFetch from "../../utils/getFetch";
 import ItemDetail from "../ItemDetail/ItemDetail";
 
 const ItemDetailContainer = ({ greetings }) => {
@@ -16,13 +17,17 @@ const ItemDetailContainer = ({ greetings }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    getFetch(Number(id))
-      .then((producto) => {
-        setProd(producto);
-      })
+    const db = getFirestore();
+    const dbQuery = doc(db, "productos", id);
+    getDoc(dbQuery)
+      .then((item) =>
+        setProd({ ...item.data(), id: item.id })
+      )
       .catch((err) => console.log(err))
-      .finally(() => setBool(false));
-  }, [id]);
+      .finally(() => {
+        setBool(false);
+      });
+  }, [prod, id]);
 
   return (
     <Container fluid className="bg-dark" style={{ minHeight: "90vh" }}>

@@ -5,31 +5,38 @@ import { useParams } from "react-router-dom";
 
 import { Container, Row } from "react-bootstrap";
 
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 import { Ring } from "@uiball/loaders";
 
 import ItemList from "../ItemList/ItemList";
 
 const ItemListContainer = ({ greetings }) => {
-  let [prod, setProd] = useState([]);
+  let [productos, setProductos] = useState([]);
   let [bool, setBool] = useState(true);
   const { categoria } = useParams();
 
   useEffect(() => {
     const db = getFirestore();
-    const dbQuery = collection(db, "productos");
+    const dbQuery = categoria
+      ? query(collection(db, "productos"), where("category", "==", categoria))
+      : collection(db, "productos");
+
     getDocs(dbQuery)
       .then((resp) =>
-        setProd(resp.docs.map((item) => ({ ...item.data(), id: item.id })))
+        setProductos(resp.docs.map((item) => ({ ...item.data(), id: item.id })))
       )
       .catch((err) => console.log(err))
       .finally(() => {
         setBool(false);
       });
-  }, [prod]);
-
-  console.log(prod);
+  }, [categoria]);
 
   return (
     <Container fluid className="bg-secondary" style={{ minHeight: "40vh" }}>
@@ -41,10 +48,8 @@ const ItemListContainer = ({ greetings }) => {
       <Row className="justify-content-center">
         {bool ? (
           <Ring size={40} lineWeight={5} speed={2} color="white" />
-        ) : categoria ? (
-          <ItemList products={prod} category={categoria} />
         ) : (
-          <ItemList products={prod} />
+          <ItemList products={productos} />
         )}
       </Row>
     </Container>

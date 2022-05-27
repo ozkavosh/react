@@ -10,19 +10,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Icons = require("@fortawesome/free-solid-svg-icons");
 
 const CartWidget = () => {
-  const { cartItems, updateItems } = useCartContext();
+  const { totalCartItems, updateItems } = useCartContext();
 
   useEffect(() => {
     updateItems();
-  }, [updateItems]);
+  }, [ updateItems ]);
 
   return (
     <Link to="/cart">
       <button className="cart">
         <FontAwesomeIcon icon={Icons.faShoppingCart} />
-        {cartItems ? (
+        {totalCartItems ? (
           <Badge pill bg="success">
-            {cartItems}
+            {totalCartItems}
           </Badge>
         ) : (
           <></>

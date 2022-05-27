@@ -27,7 +27,7 @@ const ItemDetailContainer = ({ greetings }) => {
       .finally(() => {
         setBool(false);
       });
-  }, [prod, id]);
+  }, [id]);
 
   return (
     <Container fluid className="bg-dark" style={{ minHeight: "90vh" }}>

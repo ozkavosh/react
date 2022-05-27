@@ -8,15 +8,15 @@ export const useCartContext = () => {
 
 const CartContextProvider = ({ children }) => {
   const [cartList, setCartList] = useState([]);
-  const [cartItems, setCartItems] = useState(0);
+  const [totalCartItems, setTotalCartItems] = useState(0);
 
   const isInCart = (nuevoProducto) => {
     return cartList.some((producto) => producto.id === nuevoProducto.id);
   };
 
   const updateItems = () => {
-    setCartItems(cartList.reduce((acc, item) => acc + item.quantity, 0));
-  }
+    setTotalCartItems(cartList.reduce((acc, item) => acc + item.quantity, 0));
+  };
 
   const addToCart = (nuevoProducto) => {
     if (!isInCart(nuevoProducto)) {
@@ -35,16 +35,14 @@ const CartContextProvider = ({ children }) => {
   };
 
   const removeItem = (id) => {
-    if (cartList.some((producto) => producto.cartId === id)) {
-      let cartAux = cartList.filter((item) => item.cartId !== id);
+    let cartAux = cartList.filter((item) => item.cartId !== id);
 
-      if (cartAux.length > 0) {
-        for (let i = 0; i < cartAux.length; i++) {
-          cartAux[i].cartId = i + 1;
-        }
+    if (cartAux.length > 0) {
+      for (let i = 0; i < cartAux.length; i++) {
+        cartAux[i].cartId = i + 1;
       }
-      setCartList(cartAux);
     }
+    setCartList(cartAux);
 
     updateItems();
   };
@@ -58,7 +56,7 @@ const CartContextProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cartList,
-        cartItems,
+        totalCartItems,
         updateItems,
         addToCart,
         clearCart,

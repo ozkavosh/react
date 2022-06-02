@@ -11,6 +11,7 @@ import {
   getDocs,
   query,
   where,
+  orderBy,
 } from "firebase/firestore";
 
 import { Ring } from "@uiball/loaders";
@@ -26,7 +27,7 @@ const ItemListContainer = ({ greetings }) => {
     const db = getFirestore();
     const dbQuery = categoria
       ? query(collection(db, "productos"), where("category", "==", categoria))
-      : collection(db, "productos");
+      : query(collection(db, "productos"), orderBy("title"));
 
     getDocs(dbQuery)
       .then((resp) =>

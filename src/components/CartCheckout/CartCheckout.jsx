@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import Swal from "sweetalert2";
 import { addDoc, getFirestore, collection } from "firebase/firestore";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -7,17 +8,16 @@ import "./CartCheckout.css";
 
 const CartCheckout = ({ show, handleHide, total }) => {
   const { cartList, clearCart } = useCartContext();
+  const [ buyerData, setBuyerData ] = useState({ name: '', phone: '', email: '' });
+
+  const handleChange = (e) => {
+    setBuyerData({ ...buyerData, [e.target.name]: e.target.value })
+  }
 
   const createOrder = async () => {
-    const name = document.querySelector("#formBasicName").value;
-    const phone = document.querySelector("#formBasicPhone").value;
-    const email = document.querySelector("#formBasicEmail").value;
-
     const order = {
       buyer: {
-        name,
-        phone,
-        email,
+        ...buyerData
       },
       items: cartList.map(({ id, title, price, quantity }) => ({
         id,
@@ -27,6 +27,8 @@ const CartCheckout = ({ show, handleHide, total }) => {
       date: new Date(Date.now()).toLocaleString(),
       total,
     };
+
+    console.log(order);
 
     const db = getFirestore();
     const query = collection(db, "orders");
@@ -54,7 +56,8 @@ const CartCheckout = ({ show, handleHide, total }) => {
             <Form.Control
               type="text"
               placeholder="Ingresa tu nombre completo"
-              required
+              onChange={handleChange}
+              name="name"
             />
           </Form.Group>
 
@@ -63,7 +66,8 @@ const CartCheckout = ({ show, handleHide, total }) => {
             <Form.Control
               type="number"
               placeholder="Ingresa tu número de telefono"
-              required
+              onChange={handleChange}
+              name="phone"
             />
           </Form.Group>
 
@@ -72,7 +76,8 @@ const CartCheckout = ({ show, handleHide, total }) => {
             <Form.Control
               type="email"
               placeholder="Ingresa tu dirección de correo"
-              required
+              onChange={handleChange}
+              name="email"
             />
             <Form.Text className="text-muted">
               Nunca lo compartiremos con nadie.

@@ -1,11 +1,10 @@
-.banner{
-    height: 65vh;
-}
-
 .carousel-inner{
     height: 100%;
 }
 
-.carousel-item{
-    object-position: top;
+.carousel-item img{
+    filter: grayscale(70%);
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
 }

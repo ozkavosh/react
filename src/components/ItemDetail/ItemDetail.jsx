@@ -1,11 +1,9 @@
-import "./ItemDetail.css";
-
-import { Row, Col } from "react-bootstrap";
-
-import { Link } from "react-router-dom"
 import { useState } from "react";
-
+import { Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom"
 import ItemCount from "../ItemCount/ItemCount";
+
+import "./ItemDetail.css";
 
 const ItemDetail = ({ product }) => {
   const [btnPressed, setBtnPressed] = useState(false);
@@ -13,7 +11,7 @@ const ItemDetail = ({ product }) => {
   return (
     <Row className="justify-content-center bg-light">
       <Col>
-        <img src={product.pictureUrl} alt="" />
+        <img src={product.pictureUrl} alt={product.title} />
       </Col>
 
       <Col className="d-flex flex-column justify-content-center">

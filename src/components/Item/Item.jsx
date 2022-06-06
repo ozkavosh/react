@@ -1,8 +1,7 @@
-import "./Item.css";
-
+import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 
-import { Link } from "react-router-dom";
+import "./Item.css";
 
 const Item = ({ product }) => {
   return (

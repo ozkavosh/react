@@ -1,10 +1,9 @@
-import "./NavBar.css";
-import logo from "../../img/logo.png";
-
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
-
+import logo from "../../img/logo.png";
 import CartWidget from "../CartWidget/CartWidget";
+
+import "./NavBar.css";
 
 const NavBar = () => {
   return (

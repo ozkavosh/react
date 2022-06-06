@@ -1,12 +1,10 @@
-import "./ItemCount.css";
-
 import { useState } from "react";
 import { Row } from "react-bootstrap";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { useCartContext } from "../../context/CartContext"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const Icons = require("@fortawesome/free-solid-svg-icons");
+import "./ItemCount.css";
 
 const ItemCount = ({ product, initial = 1, setBtnPressed}) => {
   const [count, setCount] = useState(initial);
@@ -25,11 +23,11 @@ const ItemCount = ({ product, initial = 1, setBtnPressed}) => {
       <h5 className="stock">Stock: {product.stock}</h5>
       <div className="countContainer mb-2">
         <button onClick={() => removeItem()} className="minBtn">
-          <FontAwesomeIcon icon={Icons.faMinusCircle} />
+          <FontAwesomeIcon icon={faMinusCircle} />
         </button>
         <p className="count bg-secondary">{count}</p>
         <button onClick={() => addItem()} className="addBtn">
-          <FontAwesomeIcon icon={Icons.faPlusCircle} />
+          <FontAwesomeIcon icon={faPlusCircle} />
         </button>
       </div>
       <button

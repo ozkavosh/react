@@ -1,9 +1,8 @@
-import "./CartItem.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useCartContext } from "../../context/CartContext";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const Icons = require("@fortawesome/free-solid-svg-icons");
+import "./CartItem.css";
 
 const CartItem = ({ item }) => {
   const { removeItem, addToCart } = useCartContext();
@@ -18,19 +17,19 @@ const CartItem = ({ item }) => {
           className={"btn btn-dark btnMinus" + (item.quantity > 1 ? "" : " disabled")}
           onClick={() => {addToCart({ ...item, quantity: -1 })}}
         >
-          <FontAwesomeIcon icon={Icons.faMinus} />
+          <FontAwesomeIcon icon={faMinus} />
         </button>
         <p className="d-md-inline d-block mx-2 mt-2 mt-md-0">{item.quantity}</p>
         <button
           className={"btn btn-dark btnAdd" + (item.quantity < item.stock ? "" : " disabled")}
           onClick={() => {addToCart({ ...item, quantity: 1 })}}
         >
-          <FontAwesomeIcon icon={Icons.faPlus} />
+          <FontAwesomeIcon icon={faPlus} />
         </button>
       </td>
       <td>
         <FontAwesomeIcon
-          icon={Icons.faTrash}
+          icon={faTrash}
           style={{ cursor: "pointer" }}
           onClick={() => {removeItem(item.cartId)}}
         />

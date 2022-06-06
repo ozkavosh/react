@@ -9,21 +9,21 @@ export const useCartContext = () => {
 const CartContextProvider = ({ children }) => {
   const [cartList, setCartList] = useState([]);
 
-  const isInCart = (nuevoProducto) => {
-    return cartList.some((producto) => producto.id === nuevoProducto.id);
+  const isInCart = (newProducto) => {
+    return cartList.some((product) => product.id === newProducto.id);
   };
 
-  const addToCart = (nuevoProducto) => {
-    if (!isInCart(nuevoProducto)) {
+  const addToCart = (newProduct) => {
+    if (!isInCart(newProduct)) {
       setCartList([
         ...cartList,
-        { ...nuevoProducto, cartId: cartList.length + 1 },
+        { ...newProduct, cartId: cartList.length + 1 },
       ]);
     } else {
-      let indice = cartList.indexOf(
-        cartList.find((producto) => producto.id === nuevoProducto.id)
+      let index = cartList.indexOf(
+        cartList.find((product) => product.id === newProduct.id)
       );
-      cartList[indice].quantity += nuevoProducto.quantity;
+      cartList[index].quantity += newProduct.quantity;
       setCartList([...cartList]);
     }
   };

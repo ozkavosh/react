@@ -23,13 +23,13 @@ const CartCheckout = ({ show, handleHide }) => {
   };
 
   const handleKeyDown = (e) => {
-    if(!/^[a-zA-Z ]+$/.test(e.key)) e.preventDefault();
+    !/^[a-zA-Z ]+$/.test(e.key) && e.preventDefault();
   }
 
   const createOrder = async () => {
     let errores = [];
-    errores.push(/^[a-zA-Z]?[a-zA-Z]+[ ]?[[a-zA-Z]?[a-zA-Z]+]?$/.test(buyerData.name) ? false : true);
-    errores.push(buyerData.phone ? false : true);
+    errores.push(/^[a-zA-Z][a-z]+([ ][a-zA-Z][a-z]+)*$/.test(buyerData.name) ? false : true);
+    errores.push(buyerData.phone && /^[0-9]+$/.test(buyerData.phone) ? false : true);
     errores.push(buyerData.email && buyerData.email === emailVerify && buyerData.email.includes('@') ? false : true);
 
     errores.includes(true) ? setFormError(errores) : await sendOrder(buyerData);
@@ -52,7 +52,7 @@ const CartCheckout = ({ show, handleHide }) => {
               name="name"
             />
             { formError[0] ? <Form.Text className="text-danger">
-              Revise el nombre y vuelva a intentarlo!
+              Formato de nombre incorrecto o vacio! (Nombre, Nombre Apellido, nombre apellido)
             </Form.Text> : <></> }
           </Form.Group>
 
@@ -65,7 +65,7 @@ const CartCheckout = ({ show, handleHide }) => {
               name="phone"
             />
             { formError[1] ? <Form.Text className="text-danger">
-              Revise el telefono y vuelva a intentarlo!
+              Formato de telefono incorrecto o vacio! (Solo numeros)
             </Form.Text> : <></> }
           </Form.Group>
 

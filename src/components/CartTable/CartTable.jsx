@@ -63,7 +63,7 @@ const CartTable = () => {
           <td></td>
         </tr>
       </tfoot>
-      <CartCheckout show={show} handleHide={handleHide} total={total}/>
+      <CartCheckout show={show} handleHide={handleHide}/>
     </Table>
   );
 };

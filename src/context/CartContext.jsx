@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from "react";
+import Swal from "sweetalert2";
+import { addDoc, getFirestore, collection } from "firebase/firestore";
 
 const CartContext = createContext({});
 
@@ -43,10 +45,37 @@ const CartContextProvider = ({ children }) => {
     setCartList([]);
   };
 
+  const sendOrder = async (buyer) => {
+    const order = {
+      buyer,
+      items: cartList.map(({ id, title, price, quantity }) => ({
+        id,
+        title,
+        price: price * quantity,
+      })),
+      date: new Date(Date.now()).toLocaleString(),
+      total: cartList.map(({price, quantity}) => price * quantity).reduce((acc, item) => acc + item , 0).toFixed(2)
+    };
+
+    const db = getFirestore();
+    const query = collection(db, "orders");
+    const orderRef = await addDoc(query, order);
+
+    Swal.fire({
+      title: "Gracias por su compra!",
+      text: `Id de su orden: ${orderRef.id}`,
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    });
+
+    clearCart();
+  }
+
   return (
     <CartContext.Provider
       value={{
         cartList,
+        sendOrder,
         addToCart,
         clearCart,
         removeItem,

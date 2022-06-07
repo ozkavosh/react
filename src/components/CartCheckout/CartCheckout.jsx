@@ -28,9 +28,7 @@ const CartCheckout = ({ show, handleHide }) => {
     errores.push(buyerData.phone ? false : true);
     errores.push(buyerData.email && buyerData.email === emailVerify && buyerData.email.includes('@') ? false : true);
 
-    if(errores.includes(true)) return setFormError(errores);
-
-    await sendOrder(buyerData);
+    errores.includes(true) ? setFormError(errores) : await sendOrder(buyerData);
   };
 
   return (

@@ -22,9 +22,13 @@ const CartCheckout = ({ show, handleHide }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if(!/^[a-zA-Z ]+$/.test(e.key)) e.preventDefault();
+  }
+
   const createOrder = async () => {
     let errores = [];
-    errores.push(buyerData.name ? false : true);
+    errores.push(/^[a-zA-Z]?[a-zA-Z]+[ ]?[[a-zA-Z]?[a-zA-Z]+]?$/.test(buyerData.name) ? false : true);
     errores.push(buyerData.phone ? false : true);
     errores.push(buyerData.email && buyerData.email === emailVerify && buyerData.email.includes('@') ? false : true);
 
@@ -44,10 +48,11 @@ const CartCheckout = ({ show, handleHide }) => {
               type="text"
               placeholder="Ingresa tu nombre completo"
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
               name="name"
             />
             { formError[0] ? <Form.Text className="text-danger">
-              Este campo no puede quedar vacio!
+              Revise el nombre y vuelva a intentarlo!
             </Form.Text> : <></> }
           </Form.Group>
 
@@ -60,7 +65,7 @@ const CartCheckout = ({ show, handleHide }) => {
               name="phone"
             />
             { formError[1] ? <Form.Text className="text-danger">
-              Este campo no puede quedar vacio!
+              Revise el telefono y vuelva a intentarlo!
             </Form.Text> : <></> }
           </Form.Group>
 

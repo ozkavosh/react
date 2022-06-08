@@ -12,7 +12,7 @@ const CartCheckout = ({ show, handleHide }) => {
     email: "",
   });
   const [ emailVerify, setEmailVerify ] = useState("");
-  const [ formError, setFormError ] = useState([false, false, false]);
+  const [ formError, setFormError ] = useState([false, false, false, false]);
 
   const handleChange = (e) => {
     if (e.target.name === "emailVerify") {
@@ -27,12 +27,13 @@ const CartCheckout = ({ show, handleHide }) => {
   }
 
   const createOrder = async () => {
-    let errores = [];
-    errores.push(/^[a-zA-Z][a-z]+([ ][a-zA-Z][a-z]+)*$/.test(buyerData.name) ? false : true);
-    errores.push(buyerData.phone && /^[0-9]+$/.test(buyerData.phone) ? false : true);
-    errores.push(buyerData.email && buyerData.email === emailVerify && buyerData.email.includes('@') ? false : true);
+    let errors = [];
+    errors.push(/^[A-Z]?[a-z]+([ ][A-Z]?[a-z]+)*$/.test(buyerData.name) ? false : true);
+    errors.push(/^[0-9]+$/.test(buyerData.phone) ? false : true);
+    errors.push(/^[a-zA-Z]+[@][a-zA-Z]+[.][a-z]{2,3}$/.test(buyerData.email) ? false : true);
+    errors.push(buyerData.email === emailVerify ? false : true);
 
-    errores.includes(true) ? setFormError(errores) : await sendOrder(buyerData);
+    errors.includes(true) ? setFormError(errors) : await sendOrder(buyerData);
   };
 
   return (
@@ -51,9 +52,9 @@ const CartCheckout = ({ show, handleHide }) => {
               onKeyDown={handleKeyDown}
               name="name"
             />
-            { formError[0] ? <Form.Text className="text-danger">
-              Formato de nombre incorrecto o vacio! (Nombre, Nombre Apellido, nombre apellido)
-            </Form.Text> : <></> }
+            { formError[0] && <Form.Text className="text-danger">
+              Formato de nombre incorrecto o vacio! (Nombre, Nombre Apellido/s, nombre, nombre apellido/s)
+            </Form.Text> }
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPhone">
@@ -64,9 +65,9 @@ const CartCheckout = ({ show, handleHide }) => {
               onChange={handleChange}
               name="phone"
             />
-            { formError[1] ? <Form.Text className="text-danger">
+            { formError[1] && <Form.Text className="text-danger">
               Formato de telefono incorrecto o vacio! (Solo numeros)
-            </Form.Text> : <></> }
+            </Form.Text>}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -77,9 +78,9 @@ const CartCheckout = ({ show, handleHide }) => {
               onChange={handleChange}
               name="email"
             />
-            <Form.Text className="text-muted">
-              Nunca lo compartiremos con nadie.
-            </Form.Text>
+            { formError[2] && <Form.Text className="text-danger">
+              Formato de correo incorrecto o vacio! (correo@dominio.pre)!
+            </Form.Text>}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicVerifyEmail">
@@ -89,10 +90,11 @@ const CartCheckout = ({ show, handleHide }) => {
               placeholder="Ingresa tu dirección de correo"
               onChange={handleChange}
               name="emailVerify"
+              autoComplete="off"
             />
-            { formError[2] ? <Form.Text className="text-danger">
+            { formError[3] && <Form.Text className="text-danger">
               Verifica los correos ingresados!
-            </Form.Text> : <></> }
+            </Form.Text>}
           </Form.Group>
         </Form>
       </Modal.Body>

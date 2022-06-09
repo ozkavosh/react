@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { Ring } from "@uiball/loaders";
@@ -12,19 +12,21 @@ const ItemDetailContainer = ({ greetings }) => {
   const [product, setProduct] = useState([]);
   const [bool, setBool] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const db = getFirestore();
     const dbQuery = doc(db, "products", id);
     getDoc(dbQuery)
-      .then((item) =>
-        setProduct({ ...item.data(), id: item.id })
-      )
+      .then((item) => {
+        !item.data() && navigate('/404', { replace: true });
+        setProduct({ ...item.data(), id: item.id });
+      })
       .catch((err) => console.log(err))
       .finally(() => {
         setBool(false);
       });
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <Container fluid className="bg-dark" style={{ minHeight: "90vh" }}>
@@ -35,7 +37,7 @@ const ItemDetailContainer = ({ greetings }) => {
         {bool ? (
           <Ring size={40} lineWeight={5} speed={2} color="white" />
         ) : (
-          <ItemDetail product={product}/>
+          <ItemDetail product={product} />
         )}
       </Row>
     </Container>

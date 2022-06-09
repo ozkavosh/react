@@ -5,6 +5,7 @@ import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailCont
 import Banner from "./components/Banner/Banner";
 import Cart from "./components/Cart/Cart";
 import CartContextProvider from "./context/CartContext";
+import UnkownRouteContainer from "./components/UnkownRouteContainer/UnkownRouteContainer";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -20,7 +21,8 @@ function App() {
           <Route path="/cart" element={<Cart />}/>
           <Route path="/:category" element={<><Banner /><ItemListContainer /></>}/>
           <Route path="/item/:id" element={<ItemDetailContainer greetings="Detalle del producto"/>}/>
-          <Route path="/*" element={<Navigate to="/" replace/>}/> 
+          <Route path="/404" element={<UnkownRouteContainer/>}/>
+          <Route path="/*" element={<Navigate to="/404" replace/>}/> 
         </Routes>
         </CartContextProvider>
       </BrowserRouter>

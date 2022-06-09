@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 import {
   getFirestore,
@@ -17,22 +17,25 @@ const ItemListContainer = ({ greetings }) => {
   let [products, setProducts] = useState([]);
   let [bool, setBool] = useState(true);
   const { category } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("Se hizo una consulta a firebase")
     const db = getFirestore();
     const dbQuery = category
       ? query(collection(db, "products"), where("category", "==", category))
       : query(collection(db, "products"));
 
     getDocs(dbQuery)
-      .then((resp) =>
-        setProducts(resp.docs.map((item) => ({ ...item.data(), id: item.id })))
-      )
+      .then((resp) => {
+        !resp.docs.length && navigate('/404', {replace: true});
+        setProducts(resp.docs.map((item) => ({ ...item.data(), id: item.id })));
+      })
       .catch((err) => console.log(err))
       .finally(() => {
         setBool(false);
       });
-  }, [category]);
+  }, [category, navigate]);
 
   return (
     <Container fluid className="bg-secondary" style={{ minHeight: "40vh" }}>

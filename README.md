@@ -35,7 +35,7 @@ y puede accederse haciendo [click acá](https://react-pi-teal.vercel.app) o bien
 - Mensaje de compra exitosa y numero de orden de compra
     ![App Screenshot](./src/img/cartPurchase.gif)
 - **YAPA** Pagina 404 al ingresar una url, id de producto o categoria invalidas
-    ![App Screenshot](./src/img/category404) ![App Screenshot](./src/img/product404)
+    ![App Screenshot](./src/img/category404.gif) ![App Screenshot](./src/img/product404.gif)
 
 ## Herramientas utilizadas
 

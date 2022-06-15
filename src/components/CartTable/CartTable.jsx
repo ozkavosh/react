@@ -7,16 +7,11 @@ import CartItem from "../CartItem/CartItem";
 import "./CartTable.css";
 
 const CartTable = () => {
-  const { cartList, clearCart } = useCartContext();
+  const { cartList, getCartAmount, clearCart } = useCartContext();
   const [ show, setShow ] = useState(false);
 
   const handleShow = () => setShow(true);
   const handleHide = () => setShow(false);
-
-  const total = cartList
-    .map((item) => item.quantity * item.price)
-    .reduce((sum, item) => sum + item, 0)
-    .toFixed(2);
 
   return (
     <Table striped bordered hover variant="light" className="m-0">
@@ -36,7 +31,7 @@ const CartTable = () => {
       </tbody>
       <tfoot>
         <tr>
-          <td>Total: ${total}</td>
+          <td>Total: ${getCartAmount()}</td>
           <td>
             <Button
               variant="dark"

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import Swal from "sweetalert2";
 import { useCartContext } from "../../context/CartContext";
 
 import "./CartCheckout.css";
@@ -26,6 +27,15 @@ const CartCheckout = ({ show, handleHide }) => {
     !/^[a-zA-Z ]+$/.test(e.key) && e.preventDefault();
   }
 
+  const handleOrderId = async (orderRef) => {
+    Swal.fire({
+      title: "Gracias por su compra!",
+      text: `Id de su orden: ${await orderRef.id}`,
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    });
+  }
+
   const createOrder = async () => {
     let errors = [];
     errors.push(/^[A-Z]?[a-z]+([ ][A-Z]?[a-z]+)*$/.test(buyerData.name) ? false : true);
@@ -33,7 +43,7 @@ const CartCheckout = ({ show, handleHide }) => {
     errors.push(/^[a-zA-Z]+[@][a-zA-Z]+[.][a-z]{2,3}$/.test(buyerData.email) ? false : true);
     errors.push(buyerData.email === emailVerify ? false : true);
 
-    errors.includes(true) ? setFormError(errors) : await sendOrder(buyerData);
+    errors.includes(true) ? setFormError(errors) : handleOrderId(await sendOrder(buyerData));
   };
 
   return (

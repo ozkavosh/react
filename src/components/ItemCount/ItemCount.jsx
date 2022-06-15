@@ -10,11 +10,11 @@ const ItemCount = ({ product, initial = 1, setBtnPressed}) => {
   const [count, setCount] = useState(initial);
   const { addToCart } = useCartContext();
 
-  function addItem() {
+  const addItem = () => {
     if (count < product.stock) setCount(count + 1);
   }
 
-  function removeItem() {
+  const removeItem = () => {
     if (count > initial) setCount(count - 1);
   }
 

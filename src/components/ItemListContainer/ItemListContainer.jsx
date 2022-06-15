@@ -13,39 +13,42 @@ import ItemList from "../ItemList/ItemList";
 
 import "./ItemListContainer.css";
 
-const ItemListContainer = ({ greetings }) => {
-  let [products, setProducts] = useState([]);
-  let [bool, setBool] = useState(true);
+const ItemListContainer = ({ title }) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { category } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Se hizo una consulta a firebase")
-    const db = getFirestore();
-    const dbQuery = category
-      ? query(collection(db, "products"), where("category", "==", category))
-      : query(collection(db, "products"));
+    ;(async ()=>{
+      const db = getFirestore();
+      const dbQuery = category
+        ? query(collection(db, "products"), where("category", "==", category))
+        : query(collection(db, "products"));
+      
+      try{
+        const itemsRef = await getDocs(dbQuery);
+        !itemsRef.docs.length && navigate('/404', {replace: true});
+        setProducts(itemsRef.docs.map((item) => ({ ...item.data(), id: item.id })));
+      }catch (err){
+        console.error(err.message);
+      }finally{
+        setLoading(false);
+      }
+    })();
 
-    getDocs(dbQuery)
-      .then((resp) => {
-        !resp.docs.length && navigate('/404', {replace: true});
-        setProducts(resp.docs.map((item) => ({ ...item.data(), id: item.id })));
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setBool(false);
-      });
+    return setLoading(true);
   }, [category, navigate]);
 
   return (
-    <Container fluid className="bg-secondary" style={{ minHeight: "40vh" }}>
+    <Container fluid className="bg-secondary" style={{ minHeight: "100vh" }}>
       <Row>
         <h2 className="title text-light p-2">
-          {greetings ? greetings.toUpperCase() : category.toUpperCase()}
+          {title ? title.toUpperCase() : category.toUpperCase()}
         </h2>
       </Row>
       <Row className="justify-content-center">
-        {bool ? (
+        {loading ? (
           <Ring size={40} lineWeight={5} speed={2} color="white" />
         ) : (
           <ItemList products={products} />

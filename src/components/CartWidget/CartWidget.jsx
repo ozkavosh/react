@@ -7,16 +7,15 @@ import { useCartContext } from "../../context/CartContext";
 import "./CartWidget.css";
 
 const CartWidget = () => {
-  const { cartList } = useCartContext();
-  const totalCartItems = cartList.map(product => product.quantity).reduce((acc, item) => acc + item, 0);
+  const { getCartItemQuantity } = useCartContext();
 
   return (
     <Link to="/cart">
       <button className="cart">
         <FontAwesomeIcon icon={faShoppingCart} />
-        {totalCartItems ? (
+        {getCartItemQuantity() ? (
           <Badge pill bg="success">
-            {totalCartItems}
+            {getCartItemQuantity()}
           </Badge>
         ) : (
           <></>

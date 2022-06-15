@@ -14,7 +14,7 @@ const UnkownRouteContainer = () => {
             </Col>
 
             <Col>
-                <h3>Oops... Algo salió mal!</h3>
+                <h3>404... Algo salió mal!</h3>
                 <h5>No sabemos como llegaste hasta acá</h5>
                 <Link to="/" className="btn btn-success"> <h6>Volver al inicio</h6>  </Link>
             </Col>

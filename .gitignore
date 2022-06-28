@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+./prueba_carpetita
 
 # testing
 /coverage
